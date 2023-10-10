@@ -5,6 +5,6 @@ INSERT INTO  roles (job_title, role_id, department, salary)
 VALUES ();
 /*exp ("supervisor",1,"food and bev", 32000)*/
 
-INSERT INTO employee (employee_id, first_name, last_name, role, manager,)
+INSERT INTO employee (employee_id, first_name, last_name, job_title, department, salary, manager,)
 VALUES();
 /*exp(1,"Jane", "Smith", "supervisor", "Mary","shelley")*/
