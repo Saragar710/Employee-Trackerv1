@@ -14,4 +14,4 @@ const connection = mysql.createConnection({
     console.log(`Connected to the employee_db database.`)
 );
 
-app.post
+app.post('/api/new-employee')
