@@ -9,6 +9,9 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'Tinkerbell',
-    database: 'employee_tracker'
-});
+    database: 'employee_db'
+},
+    console.log(`Connected to the employee_db database.`)
+);
 
+app.post

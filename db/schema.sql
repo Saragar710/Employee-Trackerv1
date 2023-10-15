@@ -1,6 +1,6 @@
-CREATE DATABASE  employee_tracker;
+CREATE DATABASE  employee_db;
 
-USE employee_tracker;
+USE employee_db;
 
 CREATE TABLE department (
     'id' : 'INT PRIMARY KEY'
