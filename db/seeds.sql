@@ -1,21 +1,25 @@
-INSERT INTO department (id, name)
+INSERT INTO department (department_idid, name)
 VALUES (1, Sales),
        (2, Engineering),
        (3, Food_Bev),
        (4, Housekeeping);
 
 /*exp ("food and bev",1)*/
-INSERT INTO  roles (role_id, job_title, department, salary)
-VALUES (1, Salesperson, Sales, 30000),
-       (2, Lead Engineer, Engineering, 80000),
-       (3, Supervisor, Food_Bev, 32000),
-       (4, Supervisor, Housekeeping, 25000);
+INSERT INTO  roles (role_id, title, salary, department_id, )
+VALUES ( 1,Salesperson,30000,1),
+       ( 2,Lead Engineer,80000, 2),
+       (3, Supervisor,32000,3),
+       (4, Supervisor, 25000 4);
 /*exp ("supervisor",1,"food and bev", 32000)*/
 
-INSERT INTO employee (employee_id, first_name, last_name, job_title, department, salary, manager)
-VALUES(1, Micheal, Scott, Manager, Management, 100000, null),
-      (2, Stanley, Hudson, Salesperson, Sales, 75000, Micheal Scott),
-      (3, Dwight, Shrute, Lead Engineer, Engineering,80000, Micheal Scott),
-      (4, Angela, Martin, Supervisor, Food_Bev, 32000, Phyllis Vance),
-      (5, Erin, Hannon, Supervisor, Housekeeping, 25000, Micheal Scott);  
+INSERT INTO employee (employee_id, first_name, last_name, role_id, manager_id)
+VALUES( 1,"Stanley"," Hudson", Salesperson, ),
+      (2, "Dwight", "Shrute", Lead Engineer, ),
+      (3, "Angela", "Martin", Supervisor, ),
+      ( 4,"Erin", "Hannon", Supervisor, );  
 /*exp(1,"Jane", "Smith", "supervisor", "Mary","shelley")*/
+
+INSERT INTO manager (manager_id, first_name, last_name)
+VALUES (1, "Micheal", "Scott"),
+       (2, "Phyllis"," Vance"),
+       (3, "David", "Wallace"); 
