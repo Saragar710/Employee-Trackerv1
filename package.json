@@ -5,6 +5,7 @@
   },
   "scripts": {
     "start": "node server.js"
+    
   },
   "name": "employee-trackerv1",
   "description": "Tracking employee information ",
