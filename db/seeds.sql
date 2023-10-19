@@ -13,10 +13,10 @@ VALUES ( 1,Salesperson,30000,1),
 /*exp ("supervisor",1,"food and bev", 32000)*/
 
 INSERT INTO employee (employee_id, first_name, last_name, role_id, manager_id)
-VALUES( 1,"Stanley"," Hudson", Salesperson, ),
-      (2, "Dwight", "Shrute", Lead Engineer, ),
-      (3, "Angela", "Martin", Supervisor, ),
-      ( 4,"Erin", "Hannon", Supervisor, );  
+VALUES( 1,"Stanley"," Hudson", Salesperson, 1 ),
+      (2, "Dwight", "Shrute", Lead Engineer, 3),
+      (3, "Angela", "Martin", Supervisor, 2),
+      ( 4,"Erin", "Hannon", Supervisor, 1);  
 /*exp(1,"Jane", "Smith", "supervisor", "Mary","shelley")*/
 
 INSERT INTO manager (manager_id, first_name, last_name)
