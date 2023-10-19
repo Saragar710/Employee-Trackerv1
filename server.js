@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
     password: 'Tinkerbell',
     database: 'employee_tracker'
 },
-    console.log(`Connected to the employee_db database.`)
+    console.log(`Connected to the employee_tracker database.`)
 );
 
 // app.post('/api/new-employee', ({body} , res) => {
