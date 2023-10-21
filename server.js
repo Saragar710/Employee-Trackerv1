@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const db = require("db");
 
 // app.post('/api/new-employee', ({body} , res) => {
 //     const sql = `INSERT INTO employees (employee_id, first_name, last_name, role_id,manager_id)`
