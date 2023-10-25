@@ -84,6 +84,8 @@ function quesPrompt() {
                     value: "UPDATE_EMPLOYEEROLE"
                 }
             ]
+        },  
+        {  
             type: 'list',
             name: 'updateRole',
             message: "Update Role",
@@ -93,6 +95,8 @@ function quesPrompt() {
                     value: "UPDATE_ROLE"
                 }
             ]
+        },
+        {
             type: 'list',
             name: 'updateDepartment',
             message: "Update Department",
@@ -155,11 +159,27 @@ function quesPrompt() {
         }
     })
 }
-function viewEmployees() {
-    db.findAllEmployees()
+function viewAllEmployees() {
+    DB.viewAllEmployees()
         .then(([rows]) => {
             let employees = rows;
             console.table(employees)
+        })
+        .then(() => quesPrompt())
+}
+function viewAllDepartments() {
+    DB.viewAllDepartments()
+        .then(([rows]) => {
+            let departments = rows;
+            console.table(departments)
+        })
+        .then(() => quesPrompt())
+}
+function viewAllRoles() {
+    DB.viewAllRoles()
+        .then(([rows]) => {
+            let roles = rows;
+            console.table(roles)
         })
         .then(() => quesPrompt())
 }
@@ -172,3 +192,6 @@ viewAllDepartments() {
     const params = [body.name];
 
 };
+viewAllEmployees() {
+
+}

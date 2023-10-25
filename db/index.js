@@ -25,7 +25,8 @@ class DB {
     }
     //fix this statement the query statement
     updateEmployeeRole(EmployeeRole){
-        return this.connection.promise().query("UPDATE INTO role SET ?", EmployeeRole)
+       // return this.connection.promise().query("UPDATE INTO role SET ?", EmployeeRole)
+       return this.connection.promise().query(" UPDATE employee SET role WHERE role_title")
     }
 }
 
