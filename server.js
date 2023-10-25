@@ -1,13 +1,14 @@
 const inquirer = require('inquirer');
 const DB = require("db");
 const { findAllDepartments } = require('./db');
+const mysql = require("mysql2");
 
 function quesPrompt() {
     prompt([
         {
             type: "list",
             name: "choice",
-            message: "What would you like to do?",
+            message: "View all Employees?",
             choices: [
                 {
                     name: "View ALL Employees",
@@ -18,7 +19,7 @@ function quesPrompt() {
         {
             type: "list",
             name: "choice",
-            message: "What would you like to do?",
+            message: "View all departments?",
             choices: [
                 {
                     name: "View All Departments",
@@ -29,7 +30,7 @@ function quesPrompt() {
         {
             type: "list",
             name: "choice",
-            message: "What would you like to do?",
+            message: "View all roles?",
             choices: [
                 {
                     name: "View ALL Roles",
@@ -183,15 +184,56 @@ function viewAllRoles() {
         })
         .then(() => quesPrompt())
 }
-//view roles view departments use same template look at index.js
-//clean up questions
-//add role update 
-viewAllDepartments() {
-    const createNewDepartment = `INSERT INTO department (name) VALUES (?) `;
+// view roles view departments use same template look at index.js
+// clean up questions
+// add role update 
+// viewAllDepartments() {
+//     // const createNewDepartment = `INSERT INTO department (name) VALUES (?) `;
 
-    const params = [body.name];
+//     // const params = [body.name];
 
-};
-viewAllEmployees() {
+
+// }
+// viewAllEmployees() {
+
+// }
+// viewAllRoles() {
+
+// }
+function addDepartment(department) {
+ const sql = 'INSERT INTO departments  SET (name) VALUES (?)';
+       DB.query(sql, [department], (err, result) => {
+    if (err) throw err;
+ })
 
 }
+addNewEmployee(employee) {
+    const sql = 'INSERT INTO employee  SET (name) VALUES (?)';
+    DB.query(sql, [employee], (err, result) => {
+        if (err) throw err;
+    })
+}
+addnewRole(role) {
+    const sql = 'INSERT INTO role  SET (name) VALUES (?)';
+    DB.query(sql, [role], (err, result) => {
+        if (err) throw err;
+    })
+}
+updateEmployeeRole(employeeRole) {
+    const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
+    DB.query(sql, [employeeRole], (err, result) => {
+        if (err) throw err;
+    })
+}
+updateDepartment(department) {
+    const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
+    DB.query(sql, [department], (err, result) => {
+        if (err) throw err;
+    })
+}
+// updateRole(employeeRole) {
+//     const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
+//     DB.query(sql, [role], (err, result) => {
+//         if (err) throw err;
+//     })
+// }
