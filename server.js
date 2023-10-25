@@ -161,7 +161,7 @@ function quesPrompt() {
     })
 }
 function viewAllEmployees() {
-    DB.viewAllEmployees()
+   db.viewAllEmployees()
         .then(([rows]) => {
             let employees = rows;
             console.table(employees)
@@ -169,7 +169,7 @@ function viewAllEmployees() {
         .then(() => quesPrompt())
 }
 function viewAllDepartments() {
-    DB.viewAllDepartments()
+    db.viewAllDepartments()
         .then(([rows]) => {
             let departments = rows;
             console.table(departments)
@@ -177,7 +177,7 @@ function viewAllDepartments() {
         .then(() => quesPrompt())
 }
 function viewAllRoles() {
-    DB.viewAllRoles()
+    db.viewAllRoles()
         .then(([rows]) => {
             let roles = rows;
             console.table(roles)
@@ -202,32 +202,32 @@ function viewAllRoles() {
 // }
 function addDepartment(department) {
  const sql = 'INSERT INTO departments  SET (name) VALUES (?)';
-       DB.query(sql, [department], (err, result) => {
+       db.query(sql, [department], (err, result) => {
     if (err) throw err;
  })
 
 }
-addNewEmployee(employee) {
+ function addNewEmployee(employee) {
     const sql = 'INSERT INTO employee  SET (name) VALUES (?)';
-    DB.query(sql, [employee], (err, result) => {
+    db.query(sql, [employee], (err, result) => {
         if (err) throw err;
     })
 }
-addnewRole(role) {
+function addnewRole(role) {
     const sql = 'INSERT INTO role  SET (name) VALUES (?)';
-    DB.query(sql, [role], (err, result) => {
+    db.query(sql, [role], (err, result) => {
         if (err) throw err;
     })
 }
-updateEmployeeRole(employeeRole) {
+function updateEmployeeRole(employeeRole) {
     const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
-    DB.query(sql, [employeeRole], (err, result) => {
+    db.query(sql, [employeeRole], (err, result) => {
         if (err) throw err;
     })
 }
-updateDepartment(department) {
+function updateDepartment(department) {
     const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
-    DB.query(sql, [department], (err, result) => {
+    db.query(sql, [department], (err, result) => {
         if (err) throw err;
     })
 }
