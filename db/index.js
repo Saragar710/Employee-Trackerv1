@@ -23,6 +23,7 @@ class DB {
     createRole(role){
         return this.connection.promise().query("INSERT INTO role SET ?",role)
     }
+    //fix this statement the query statement
     updateEmployeeRole(EmployeeRole){
         return this.connection.promise().query("UPDATE INTO role SET ?", EmployeeRole)
     }

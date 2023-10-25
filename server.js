@@ -2,55 +2,173 @@ const inquirer = require('inquirer');
 const DB = require("db");
 const { findAllDepartments } = require('./db');
 
-const promptUser = [
-    {
-        type: 'input',
-        name: 'departments',
-        message: "View all departments",
-        choices: ['Sales', 'Engineering', 'Food_Bev', 'Housekeeping']
-    },
-    {
-        type: 'input',
-        name: 'role',
-        message: "View all roles",
-        choices: ['Salesperson', 'Lead Engineer', 'Supervisor', 'Supervisor']
-    },
-    {
-        type: 'input',
-        name: 'employee',
-        message: "View all employees",
-        choices: ['Stanley Husdson', 'Dwight Shrute', 'Angela Martin', 'Erin Hannon']
-    },
-    {
-        type: 'input',
-        name: 'AddDepartment',
-        message: "Add a  departments",
-        
-    },
+function quesPrompt() {
+    prompt([
+        {
+            type: "list",
+            name: "choice",
+            message: "What would you like to do?",
+            choices: [
+                {
+                    name: "View ALL Employees",
+                    value: "VIEW_EMPLOYEES"
+                },
+            ]
+        },
+        {
+            type: "list",
+            name: "choice",
+            message: "What would you like to do?",
+            choices: [
+                {
+                    name: "View All Departments",
+                    value: "VIEW_DEPARTMENTS"
+                },
+            ]
+        },
+        {
+            type: "list",
+            name: "choice",
+            message: "What would you like to do?",
+            choices: [
+                {
+                    name: "View ALL Roles",
+                    value: "VIEW_ROLES"
+                },
+            ]
+        },
+        {
+            type: "list",
+            name: 'choice',
+            message: "What department would you like to add?",
+            choices: [
+                {
+                    name: "Add a Department",
+                    value: "ADD_DEPARTMENT"
+                }
+            ]
 
-{
-        type: 'input',
-        name: 'addRole',
-        message: "Add a role",
-       
-    },
-    {
-        type: 'input',
-        name: 'addEmployee',
-        message: "Add an Employee",
-        
-    },
-    {
-        type: 'input',
-        name: 'updateEmployee',
-        message: "Update employee role",
-       
-    }
-   
-];
-findAllDepartments() {
-const createNewDepartment = `INSERT INTO department (name) VALUES (?) `;
+        },
 
-const params = [body.name];
+        {
+            type: 'list',
+            name: 'choice',
+            message: "What role would you like to add?",
+            choices: [
+                {
+                    name: "Add a Role",
+                    value: "ADD_ROLE"
+                }
+            ]
+
+        },
+        {
+            type: 'list',
+            name: 'choice',
+            message: "What employee would you like to add ",
+            choices: [
+                {
+                    name: "ADD an Employee",
+                    value: "ADD_EMPLOYEE"
+                }
+            ]
+
+        },
+        {
+            type: 'list',
+            name: 'updateEmployee',
+            message: "Update employee role",
+            choices: [
+                {
+                    name: "Update Employee Role",
+                    value: "UPDATE_EMPLOYEEROLE"
+                }
+            ]
+            type: 'list',
+            name: 'updateRole',
+            message: "Update Role",
+            choices: [
+                {
+                    name: "Update Role",
+                    value: "UPDATE_ROLE"
+                }
+            ]
+            type: 'list',
+            name: 'updateDepartment',
+            message: "Update Department",
+            choices: [
+                {
+                    name: "Update Department",
+                    value: "UPDATE_Department"
+                }
+            ]
+
+        }
+
+    ]).then(res => {
+        let choice = res.choice;
+        switch (choice) {
+            case "VIEW_EMPLOYEES":
+                viewEmployees();
+                break;
+
+            case "VIEW_Roles":
+                viewRoles();
+                break;
+            case "VIEW_Departments":
+                viewDepartments();
+                break;
+            case "ADD_EMPLOYEE":
+                addEmployee();
+                break;
+            case "ADD_ROLE":
+                addRole();
+                break;
+            case "ADD_DEPARTMENT":
+                addDepartment();
+                break;
+            case "UPDATE_EMPLOYEE":
+                updateEmployee();
+                break;
+            case "UPDATE_ROLE":
+                updateRole();
+                break;
+            case "UPDATE_DEPARTMENT":
+                updateDepartment();
+                break;
+            // case "VIEW_EMPLOYEES":
+            //     viewEmployees();
+            //     break;
+            // case "VIEW_EMPLOYEES":
+            //     viewEmployees();
+            //     break;
+            // case "VIEW_EMPLOYEES":
+            //     viewEmployees();
+            //     break;
+            // case "VIEW_EMPLOYEES":
+            //     viewEmployees();
+            //     break;
+
+            default:
+                quit();
+
+        }
+    })
+}
+function viewEmployees() {
+    db.findAllEmployees()
+        .then(([rows]) => {
+            let employees = rows;
+            console.table(employees)
+        })
+        .then(() => quesPrompt())
+}
+//view roles view departments use same template look at index.js
+//clean up questions
+//add role update 
+viewAllDepartments() {
+    const createNewDepartment = `INSERT INTO department (name) VALUES (?) `;
+
+    const params = [body.name];
 
 };
