@@ -117,10 +117,10 @@ function quesPrompt() {
                 viewEmployees();
                 break;
 
-            case "VIEW_Roles":
+            case "VIEW_ROLES":
                 viewRoles();
                 break;
-            case "VIEW_Departments":
+            case "VIEW_DEPARTMENTS":
                 viewDepartments();
                 break;
             case "ADD_EMPLOYEE":
@@ -213,23 +213,26 @@ function addDepartment(department) {
         if (err) throw err;
     })
 }
-function addnewRole(role) {
-    const sql = 'INSERT INTO role  SET (name) VALUES (?)';
+function addNewRole(role) {
+    const sql = 'INSERT INTO role (name) VALUES (?)';
+    
     db.query(sql, [role], (err, result) => {
         if (err) throw err;
-    })
+    });
 }
 function updateEmployeeRole(employeeRole) {
-    const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
-    db.query(sql, [employeeRole], (err, result) => {
+    const sql = `UPDATE employeeRole SET employeeRole = ? WHERE id = ?`;
+    const [newEmployeeRole, id] = newEmployeeRole;
+    db.query(sql, [newEmployeeRole, id], (err, result) => {
         if (err) throw err;
-    })
+    });
 }
 function updateDepartment(department) {
-    const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
-    db.query(sql, [department], (err, result) => {
+    const sql = `UPDATE department SET department = ? WHERE id = ?`;
+    const [newDepartment, id] = department;
+    db.query(sql, [newDepartment, id], (err, result) => {
         if (err) throw err;
-    })
+    });
 }
 // updateRole(employeeRole) {
 //     const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
