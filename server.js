@@ -204,14 +204,13 @@ function addDepartment(department) {
  const sql = 'INSERT INTO departments  SET (name) VALUES (?)';
        DB.query(sql, [department], (err, result) => {
     if (err) throw err;
- })
-
+ });
 }
  function addEmployee(employee) {
     const sql = 'INSERT INTO employee  SET (name) VALUES (?)';
     DB.query(sql, [employee], (err, result) => {
         if (err) throw err;
-    })
+    });
 }
 function addRole(role) {
     const sql = 'INSERT INTO role (name) VALUES (?)';
