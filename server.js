@@ -161,7 +161,7 @@ function quesPrompt() {
     })
 }
 function viewAllEmployees() {
-   db.viewAllEmployees()
+   DB.viewAllEmployees()
         .then(([rows]) => {
             let employees = rows;
             console.table(employees)
@@ -169,7 +169,7 @@ function viewAllEmployees() {
         .then(() => quesPrompt())
 }
 function viewAllDepartments() {
-    db.viewAllDepartments()
+    DB.viewAllDepartments()
         .then(([rows]) => {
             let departments = rows;
             console.table(departments)
@@ -177,7 +177,7 @@ function viewAllDepartments() {
         .then(() => quesPrompt())
 }
 function viewAllRoles() {
-    db.viewAllRoles()
+    DB.viewAllRoles()
         .then(([rows]) => {
             let roles = rows;
             console.table(roles)
@@ -202,35 +202,36 @@ function viewAllRoles() {
 // }
 function addDepartment(department) {
  const sql = 'INSERT INTO departments  SET (name) VALUES (?)';
-       db.query(sql, [department], (err, result) => {
+       DB.query(sql, [department], (err, result) => {
     if (err) throw err;
  })
 
 }
- function addNewEmployee(employee) {
+ function addEmployee(employee) {
     const sql = 'INSERT INTO employee  SET (name) VALUES (?)';
-    db.query(sql, [employee], (err, result) => {
+    DB.query(sql, [employee], (err, result) => {
         if (err) throw err;
     })
 }
-function addNewRole(role) {
+function addRole(role) {
     const sql = 'INSERT INTO role (name) VALUES (?)';
     
-    db.query(sql, [role], (err, result) => {
+    DB.query(sql, [role], (err, result) => {
         if (err) throw err;
     });
 }
-function updateEmployeeRole(employeeRole) {
+//Dont know what to do about this one. updateEmployeeRole? or updateNewEmployee?
+function updateEmployee(employee) {
     const sql = `UPDATE employeeRole SET employeeRole = ? WHERE id = ?`;
     const [newEmployeeRole, id] = newEmployeeRole;
-    db.query(sql, [newEmployeeRole, id], (err, result) => {
+   DB.query(sql, [newEmployeeRole, id], (err, result) => {
         if (err) throw err;
     });
 }
 function updateDepartment(department) {
     const sql = `UPDATE department SET department = ? WHERE id = ?`;
     const [newDepartment, id] = department;
-    db.query(sql, [newDepartment, id], (err, result) => {
+   DB.query(sql, [newDepartment, id], (err, result) => {
         if (err) throw err;
     });
 }
