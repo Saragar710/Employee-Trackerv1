@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
-const DB = require("db");
+const DB = require('db');
 const { findAllDepartments } = require('./db');
-const mysql = require("mysql2");
+const mysql = require('mysql2');
 
 function quesPrompt() {
     prompt([
@@ -140,20 +140,7 @@ function quesPrompt() {
                 break;
             case "UPDATE_DEPARTMENT":
                 updateDepartment();
-                break;
-            // case "VIEW_EMPLOYEES":
-            //     viewEmployees();
-            //     break;
-            // case "VIEW_EMPLOYEES":
-            //     viewEmployees();
-            //     break;
-            // case "VIEW_EMPLOYEES":
-            //     viewEmployees();
-            //     break;
-            // case "VIEW_EMPLOYEES":
-            //     viewEmployees();
-            //     break;
-
+                break;   
             default:
                 quit();
 
@@ -220,8 +207,8 @@ function addRole(role) {
     });
 }
 //Dont know what to do about this one. updateEmployeeRole? or updateNewEmployee?
-function updateEmployee(employee) {
-    const sql = `UPDATE employeeRole SET employeeRole = ? WHERE id = ?`;
+function updateEmployee(employeeRole) {
+    const sql = `UPDATE employee SET role = ? WHERE role_title = ?`;
     const [newEmployeeRole, id] = newEmployeeRole;
    DB.query(sql, [newEmployeeRole, id], (err, result) => {
         if (err) throw err;
@@ -229,6 +216,7 @@ function updateEmployee(employee) {
 }
 function updateDepartment(department) {
     const sql = `UPDATE department SET department = ? WHERE id = ?`;
+    //const sql = `UPDATE employee SET department = ? WHERE department_name = ?`;
     const [newDepartment, id] = department;
    DB.query(sql, [newDepartment, id], (err, result) => {
         if (err) throw err;
