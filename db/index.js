@@ -23,14 +23,8 @@ class DB {
     createRole(role){
         return this.connection.promise().query("INSERT INTO role SET ?",role)
     }
-    //fix this statement the query statement
-    updateEmployeeRole(EmployeeRole){
-       // return this.connection.promise().query("UPDATE INTO role SET ?", EmployeeRole)
-       return this.connection.promise().query(" UPDATE employee SET role WHERE role_title")
-    }
-    //updateDepartment(departent){
-    // return this.connection.promise().query("UPDATE employee SET department WHERE department_name")
-   // }
+    
+
 }
 
 module.exports = new DB(connection);

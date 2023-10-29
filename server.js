@@ -14,109 +14,47 @@ function quesPrompt() {
                     name: "View ALL Employees",
                     value: "VIEW_EMPLOYEES"
                 },
-            ]
-        },
-        {
-            type: "list",
-            name: "choice",
-            message: "View all departments?",
-            choices: [
-                {
-                    name: "View All Departments",
-                    value: "VIEW_DEPARTMENTS"
-                },
-            ]
-        },
-        {
-            type: "list",
-            name: "choice",
-            message: "View all roles?",
-            choices: [
+
                 {
                     name: "View ALL Roles",
                     value: "VIEW_ROLES"
                 },
-            ]
-        },
-        {
-            type: "list",
-            name: 'choice',
-            message: "What department would you like to add?",
-            choices: [
+                {
+                    name: "View All Departments",
+                    value: "VIEW_DEPARTMENTS"
+                },
                 {
                     name: "Add a Department",
                     value: "ADD_DEPARTMENT"
-                }
-            ]
-
-        },
-
-        {
-            type: 'list',
-            name: 'choice',
-            message: "What role would you like to add?",
-            choices: [
+                },
                 {
                     name: "Add a Role",
                     value: "ADD_ROLE"
-                }
-            ]
-
-        },
-        {
-            type: 'list',
-            name: 'choice',
-            message: "What employee would you like to add ",
-            choices: [
+                },
                 {
                     name: "ADD an Employee",
                     value: "ADD_EMPLOYEE"
-                }
-            ]
-
-        },
-        {
-            type: 'list',
-            name: 'updateEmployee',
-            message: "Update employee role",
-            choices: [
+                },
                 {
                     name: "Update Employee Role",
                     value: "UPDATE_EMPLOYEEROLE"
-                }
-            ]
-        },  
-        {  
-            type: 'list',
-            name: 'updateRole',
-            message: "Update Role",
-            choices: [
+                },
                 {
                     name: "Update Role",
                     value: "UPDATE_ROLE"
-                }
-            ]
-        },
-        {
-            type: 'list',
-            name: 'updateDepartment',
-            message: "Update Department",
-            choices: [
+                },
                 {
-                    name: "Update Department",
-                    value: "UPDATE_Department"
+                    name: "Quit",
+                    value: "QUIT"
                 }
             ]
-
         }
-
     ]).then(res => {
         let choice = res.choice;
         switch (choice) {
             case "VIEW_EMPLOYEES":
                 viewEmployees();
                 break;
-
             case "VIEW_ROLES":
                 viewRoles();
                 break;
@@ -138,93 +76,154 @@ function quesPrompt() {
             case "UPDATE_ROLE":
                 updateRole();
                 break;
-            case "UPDATE_DEPARTMENT":
-                updateDepartment();
-                break;   
             default:
                 quit();
 
         }
     })
 }
-function viewAllEmployees() {
-   DB.viewAllEmployees()
+function viewEmployees() {
+    DB.findAllEmployees()
         .then(([rows]) => {
             let employees = rows;
             console.table(employees)
         })
         .then(() => quesPrompt())
 }
-function viewAllDepartments() {
-    DB.viewAllDepartments()
+function viewDepartments() {
+    DB.findAllDepartments()
         .then(([rows]) => {
             let departments = rows;
             console.table(departments)
         })
         .then(() => quesPrompt())
 }
-function viewAllRoles() {
-    DB.viewAllRoles()
+function viewRoles() {
+    DB.findAllRoles()
         .then(([rows]) => {
             let roles = rows;
             console.table(roles)
         })
         .then(() => quesPrompt())
 }
-// view roles view departments use same template look at index.js
-// clean up questions
-// add role update 
-// viewAllDepartments() {
-//     // const createNewDepartment = `INSERT INTO department (name) VALUES (?) `;
 
-//     // const params = [body.name];
-
-
-// }
-// viewAllEmployees() {
-
-// }
-// viewAllRoles() {
-
-// }
 function addDepartment(department) {
- const sql = 'INSERT INTO departments  SET (name) VALUES (?)';
-       DB.query(sql, [department], (err, result) => {
-    if (err) throw err;
- });
+    inquirer.prompt([
+        {
+            name: "name",
+            message: "What is the name of your department?"
+        }
+    ])
+        .then(res => {
+            let name = res;
+            DB.createDepartment(name)
+                .then(() => console.log(`Added ${name.name}`))
+                .then(() => quesPrompt())
+        })
 }
- function addEmployee(employee) {
-    const sql = 'INSERT INTO employee  SET (name) VALUES (?)';
-    DB.query(sql, [employee], (err, result) => {
-        if (err) throw err;
-    });
+function addEmployee(employee) {
+    inquirer.prompt([
+        {
+            name: "first_name",
+            message: "What is the employees first name?"
+        },
+        {
+            name: "last_name",
+            message: "What is the employess last name?"
+        }
+
+    ])
+        .then(res => {
+            let firstName = res.first_name;
+            let lastName = res.last_name;
+            DB.findAllRoles()
+                .then(([rows]) => {
+                    let roles = rows;
+                    const roleChoices = roles.map(({ id, title }) => ({
+                        name: title,
+                        value: id
+                    }));
+                    inquirer.prompt(
+                        {
+                            type: "list",
+                            name: "roleId",
+                            message: "What is the employees role?",
+                            choices: roleChoices
+                        },
+
+                    )
+                        .then(res => {
+                            let roleId = res.roleId;
+                            DB.findAllEmployees()
+                                .then(([rows]) => {
+                                    let employees = rows;
+                                    const managerChoices = employees.map(({ id, first_name, last_name }) => ({
+                                        name: `${first_name} ${last_name}`,
+                                        value: id
+                                    }));
+                                    managerChoices.unshift({ name: "None", value: null });
+                                    inquirer.prompt(
+                                        {
+                                            type: "list",
+                                            name: "managerId",
+                                            message: "What is the employees manager?",
+                                            choices: managerChoices
+                                        }
+
+                                    )
+                                        .then(res => {
+                                            let employee = {
+                                                manager_id: res.managerId,
+                                                role_id: roleId,
+                                                first_name: firstName,
+                                                last_name: lastName
+                                            }
+                                            DB.createEmployee(employee)
+
+                                        })
+                                        .then(() => quesPrompt())
+                                })
+                        })
+                })
+        })
 }
 function addRole(role) {
-    const sql = 'INSERT INTO role (name) VALUES (?)';
-    
-    DB.query(sql, [role], (err, result) => {
-        if (err) throw err;
-    });
+    DB.findAllDepartments()
+        .then(([rows]) => {
+            let departments = rows;
+           
+            const departmentChoices = department.map(({ id, name}) => ({
+                name: name,
+                value: id
+            }));
+            inquirer.prompt([
+                {
+                    name: "title",
+                    message: "What is the name of the department?"
+                },
+                {
+                    name: "salary",
+                    message: "What is the salary amount?"
+                },
+                {
+                    type: "list",
+                    name: "department_Id",
+                    message: "What is the department?",
+                    choices: departmentChoices
+                },
+
+             ] )
+                .then(role => {
+                    DB.createRole(role)
+                    .then(() => console.log("What is the new role"))
+                   
+        
+        .then(() => quesPrompt())
+                })
+            })
 }
-//Dont know what to do about this one. updateEmployeeRole? or updateNewEmployee?
-function updateEmployee(employeeRole) {
-    const sql = `UPDATE employee SET role = ? WHERE role_title = ?`;
-    const [newEmployeeRole, id] = newEmployeeRole;
-   DB.query(sql, [newEmployeeRole, id], (err, result) => {
-        if (err) throw err;
-    });
+
+function quit() {
+    console.log("Goodbye")
+    process.exit();
 }
-function updateDepartment(department) {
-    const sql = `UPDATE department SET department = ? WHERE id = ?`;
-    //const sql = `UPDATE employee SET department = ? WHERE department_name = ?`;
-    const [newDepartment, id] = department;
-   DB.query(sql, [newDepartment, id], (err, result) => {
-        if (err) throw err;
-    });
-}
-// updateRole(employeeRole) {
-//     const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
-//     DB.query(sql, [role], (err, result) => {
-//         if (err) throw err;
-//     })
-// }
