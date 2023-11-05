@@ -1,7 +1,6 @@
-const inquirer = require('inquirer');
-const DB = require('db');
-const { findAllDepartments } = require('./db');
-const mysql = require('mysql2');
+const { prompt } = require('inquirer');
+const DB = require('./db');
+
 
 function quesPrompt() {
     prompt([
@@ -34,15 +33,7 @@ function quesPrompt() {
                 {
                     name: "ADD an Employee",
                     value: "ADD_EMPLOYEE"
-                },
-                {
-                    name: "Update Employee Role",
-                    value: "UPDATE_EMPLOYEEROLE"
-                },
-                {
-                    name: "Update Role",
-                    value: "UPDATE_ROLE"
-                },
+                },    
                 {
                     name: "Quit",
                     value: "QUIT"
@@ -69,12 +60,6 @@ function quesPrompt() {
                 break;
             case "ADD_DEPARTMENT":
                 addDepartment();
-                break;
-            case "UPDATE_EMPLOYEE":
-                updateEmployee();
-                break;
-            case "UPDATE_ROLE":
-                updateRole();
                 break;
             default:
                 quit();
@@ -108,7 +93,7 @@ function viewRoles() {
 }
 
 function addDepartment(department) {
-    inquirer.prompt([
+   prompt([
         {
             name: "name",
             message: "What is the name of your department?"
@@ -122,7 +107,7 @@ function addDepartment(department) {
         })
 }
 function addEmployee(employee) {
-    inquirer.prompt([
+    prompt([
         {
             name: "first_name",
             message: "What is the employees first name?"
@@ -143,7 +128,7 @@ function addEmployee(employee) {
                         name: title,
                         value: id
                     }));
-                    inquirer.prompt(
+                    prompt(
                         {
                             type: "list",
                             name: "roleId",
@@ -162,7 +147,7 @@ function addEmployee(employee) {
                                         value: id
                                     }));
                                     managerChoices.unshift({ name: "None", value: null });
-                                    inquirer.prompt(
+                                  prompt(
                                         {
                                             type: "list",
                                             name: "managerId",
@@ -196,7 +181,7 @@ function addRole(role) {
                 name: name,
                 value: id
             }));
-            inquirer.prompt([
+            prompt([
                 {
                     name: "title",
                     message: "What is the name of the department?"
@@ -222,6 +207,7 @@ function addRole(role) {
                 })
             })
 }
+quesPrompt();
 
 function quit() {
     console.log("Goodbye")
